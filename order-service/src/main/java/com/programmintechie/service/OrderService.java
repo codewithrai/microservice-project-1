@@ -20,7 +20,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public void placeOrder(OrderDTO orderDTO) {
+    public String placeOrder(OrderDTO orderDTO) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -46,6 +46,7 @@ public class OrderService {
 
         if (result) {
             orderRepository.save(order);
+            return "Order placed successfully";
         } else {
             throw new IllegalArgumentException("Product is not in stock, please try again later");
         }
